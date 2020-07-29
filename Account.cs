@@ -17,29 +17,28 @@ namespace BankApp
 
 		private List<Transaction> allTransactions = new List<Transaction>();
 
-		//private static int accountNumberSeed = BankAccount.accountNumberSeed;
-
 		public Account(int id, string type, int acctNumber, string owner, decimal amount, string note)
         {
 			this.CustomerID = id;
             this.Type = type;
             this.AccountNumber = acctNumber;
             this.Owner = owner;
-			this.MakeDeposit(amount, DateTime.Now, note);
+			this.MakeDeposit(amount, note);
 			this.Note = note;
         }
 
-		public void MakeDeposit(decimal amount, DateTime date, string note)
+		public void MakeDeposit(decimal amount, string note)
 		{
 			if (amount <= 0)
 			{
 				throw new ArgumentOutOfRangeException(nameof(amount), "Amount of deposit must be positive");
 			}
-			var deposit = new Transaction(amount, date, note);
+			var deposit = new Transaction(amount, DateTime.Now, note);
 			allTransactions.Add(deposit);
 			this.Balance += amount;
+            Console.WriteLine("Deposit successful.");
 		}
-		public void MakeWithdrawal(decimal amount, DateTime date, string note)
+		public void MakeWithdrawal(decimal amount, string note)
 		{
 			if (amount <= 0)
 			{
@@ -49,9 +48,10 @@ namespace BankApp
 			{
 				throw new InvalidOperationException("Not sufficient funds for this withdrawal");
 			}
-			var withdrawal = new Transaction(-amount, date, note);
+			var withdrawal = new Transaction(-amount, DateTime.Now, note);
 			allTransactions.Add(withdrawal);
 			this.Balance -= amount;
+            Console.WriteLine("Withdrawal successful.");
 		}
 
 		public void GetBalance()
@@ -59,7 +59,7 @@ namespace BankApp
             Console.WriteLine($"Your balance is: {this.Balance}");
         }
 
-		public void MakeTransferToSelf(int number, int amount, string note)
+		public void MakeTransferToSelf(int number, decimal amount, string note)
         {
 			foreach (var item in BankAccount.Accounts)
 			{
@@ -67,8 +67,8 @@ namespace BankApp
 				{
                     if(this.AccountNumber != number)
                     {
-						this.MakeWithdrawal(amount, DateTime.Now, note);
-						item.MakeDeposit(amount, DateTime.Now, note);
+						this.MakeWithdrawal(amount, note);
+						item.MakeDeposit(amount, note);
                         Console.WriteLine("Money successfully transferred.");
 						break;
                     }
@@ -78,14 +78,14 @@ namespace BankApp
 			return;
 		}
 
-		public void MakeTransferToOthers(int number, int amount, string note)
+		public void MakeTransferToOthers(int number, decimal amount, string note)
 		{
             foreach (var item in BankAccount.Accounts)
             {
 				if (item.AccountNumber == number)
 				{
-					this.MakeWithdrawal(amount, DateTime.Now, note);
-					item.MakeDeposit(amount, DateTime.Now, note);
+					this.MakeWithdrawal(amount, note);
+					item.MakeDeposit(amount, note);
 					Console.WriteLine("Money successfully transferred.");
 					break;
 				}

@@ -12,6 +12,7 @@ namespace BankApp
 		public static int accountNumberSeed = 1111111111;
 		public static int idNumber = 0001;
 
+		// Account and Customer creation for new users
 		public BankAccount(string firstName, string lastName, string email, string type, decimal amount)
         {
 			var owner = $"{firstName} {lastName}";

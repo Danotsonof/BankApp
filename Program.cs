@@ -5,6 +5,8 @@ namespace BankApp
 {
     class Program
     {
+
+        // entry point for app
         static void Main(string[] args)
         {
             bool launchApp = true;
@@ -63,9 +65,8 @@ namespace BankApp
                         }
                         if (response_two.Equals("e", StringComparison.OrdinalIgnoreCase))
                         {
-                            Console.WriteLine("Existing Customer.");
-                            Console.WriteLine();
-                            break;
+                            Console.Write("Input your User ID: ");
+                            login();
                         }
                         if (response_two.Equals("b", StringComparison.OrdinalIgnoreCase))
                         {
@@ -96,7 +97,7 @@ namespace BankApp
             } while (launchApp);
             
         }
-
+        // login for user
         public static void login()
         {
             var user_id = Console.ReadLine();
@@ -126,6 +127,7 @@ namespace BankApp
             }
         }
 
+        // user login interface
         public static void OperateAccount(Customer customer, Account account)
         {
             do
@@ -146,26 +148,56 @@ namespace BankApp
                 {
                     case "1":
                         Console.WriteLine();
-                        Console.WriteLine("Input Account Type: S for Savings and C for Current.");
+                        Console.Write("Input Account Type: S for Savings and C for Current.");
                         var acctType = Console.ReadLine();
-                        Console.WriteLine("Input Deposit Amount.");
-                        var deposit = Console.ReadLine();
-                        customer.AddAccount(acctType.ToLower(), Convert.ToDecimal(deposit));
+                        Console.Write("Input Deposit Amount: ");
+                        var initialDeposit = Console.ReadLine();
+                        customer.AddAccount(acctType.ToLower(), Convert.ToDecimal(initialDeposit));
+                        Console.WriteLine();
                         break;
                     case "2":
-                        Console.WriteLine("2 was selected");
+                        Console.WriteLine();
+                        Console.Write("Input Deposit Amount: ");
+                        var deposit = Console.ReadLine();
+                        var personalNote = "Self deposit";
+                        account.MakeDeposit(Convert.ToDecimal(deposit), personalNote);
+                        Console.WriteLine();
                         break;
                     case "3":
-                        Console.WriteLine("3 was selected");
+                        Console.WriteLine();
+                        Console.Write("Input Withdrawal Amount: ");
+                        var withdraw = Console.ReadLine();
+                        Console.Write("Input Transaction Note: ");
+                        var withdrawNote = Console.ReadLine();
+                        account.MakeWithdrawal(Convert.ToDecimal(withdraw), withdrawNote);
+                        Console.WriteLine();
                         break;
                     case "4":
-                        Console.WriteLine("4 was selected");
+                        Console.WriteLine();
+                        account.GetBalance();
+                        Console.WriteLine();
                         break;
                     case "5":
-                        Console.WriteLine("5 was selected");
+                        Console.WriteLine();
+                        Console.Write("Amount To Transfer: ");
+                        var transferSelf = Console.ReadLine();
+                        Console.Write("Input Account Number: ");
+                        var myNumber = Console.ReadLine();
+                        Console.Write("Transaction Note: ");
+                        var transactionNote = Console.ReadLine();
+                        account.MakeTransferToSelf(Convert.ToInt32(myNumber), Convert.ToDecimal(transferSelf), transactionNote);
+                        Console.WriteLine();
                         break;
                     case "6":
-                        Console.WriteLine("6 was selected");
+                        Console.WriteLine();
+                        Console.Write("Amount To Transfer: ");
+                        var transferOther = Console.ReadLine();
+                        Console.Write("Input Account Number: ");
+                        var otherNumber = Console.ReadLine();
+                        Console.Write("Transaction Note: ");
+                        var transactionDetails = Console.ReadLine();
+                        account.MakeTransferToOthers(Convert.ToInt32(otherNumber), Convert.ToDecimal(transferOther), transactionDetails);
+                        Console.WriteLine();
                         break;
                     case "7":
                         Console.WriteLine("Logout");

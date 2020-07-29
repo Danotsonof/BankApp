@@ -19,6 +19,7 @@ namespace BankApp
             this.Numbers.Add(number);
         }
 
+        // New account creation for existing users
         public void AddAccount(string type, decimal amount)
         {
             foreach (var item in BankAccount.Accounts)
