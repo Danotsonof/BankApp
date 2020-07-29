@@ -45,7 +45,7 @@ namespace BankApp
 			{
 				throw new ArgumentOutOfRangeException(nameof(amount), "Amount of withdrawal must be positive");
 			}
-			if ((Balance - amount < 100 && this.Type == "Savings") || (Balance - amount < 0 && this.Type == "Current"))
+			if ((Balance - amount < 100 && this.Type == "s") || (Balance - amount < 0 && this.Type == "c"))
 			{
 				throw new InvalidOperationException("Not sufficient funds for this withdrawal");
 			}

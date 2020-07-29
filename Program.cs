@@ -48,7 +48,7 @@ namespace BankApp
                                 (accountType.Equals("c", StringComparison.OrdinalIgnoreCase) && Convert.ToDecimal(amount) >= 1000))
                                 )
                             {
-                                BankAccount account = new BankAccount(firstName, lastName, email, accountType, Convert.ToDecimal(amount));
+                                BankAccount account = new BankAccount(firstName, lastName, email, accountType.ToLower(), Convert.ToDecimal(amount));
                                 Console.WriteLine();
                                 //Console.WriteLine($"Account successfully opened. with ID {}");
                                 Console.WriteLine();
@@ -101,33 +101,21 @@ namespace BankApp
         {
             var user_id = Console.ReadLine();
             bool seen = false;
-
-            Customer customer;
-            Account account;
-
-            for (int i = 0; i < BankAccount.Customers.Count; i++)
-            {
-                if (Int16.Parse(user_id) == BankAccount.Customers[i].ID)
-                {
-                    seen = true;
-                    customer = BankAccount.Customers[i];
-                }
-            }
             
             foreach (var item in BankAccount.Customers)
             {
                 if(Int16.Parse(user_id) == item.ID)
                 {
-                    seen = true;
-                    customer = item;
-                }
-            }
-
-            foreach (var item in BankAccount.Accounts)
-            {
-                if (Int16.Parse(user_id) == item.CustomerID)
-                {
-                    account = item;
+                    foreach (var item2 in BankAccount.Accounts)
+                    {
+                        if (Int16.Parse(user_id) == item2.CustomerID)
+                        {
+                            seen = true;
+                            Customer customer = item;
+                            Account account = item2;
+                            OperateAccount(customer , account);
+                        }
+                    }
                 }
             }
 
@@ -136,7 +124,10 @@ namespace BankApp
                 Console.WriteLine("User profile not found.");
                 return;
             }
+        }
 
+        public static void OperateAccount(Customer customer, Account account)
+        {
             do
             {
                 Console.WriteLine($"Welcome to our App Mr./Mrs. {customer.Owner}");
@@ -154,22 +145,27 @@ namespace BankApp
                 switch (response_two)
                 {
                     case "1":
-                        Console.WriteLine("1 was selected");
+                        Console.WriteLine();
+                        Console.WriteLine("Input Account Type: S for Savings and C for Current.");
+                        var acctType = Console.ReadLine();
+                        Console.WriteLine("Input Deposit Amount.");
+                        var deposit = Console.ReadLine();
+                        customer.AddAccount(acctType.ToLower(), Convert.ToDecimal(deposit));
                         break;
                     case "2":
-                        Console.WriteLine("1 was selected");
+                        Console.WriteLine("2 was selected");
                         break;
                     case "3":
-                        Console.WriteLine("1 was selected");
+                        Console.WriteLine("3 was selected");
                         break;
                     case "4":
-                        Console.WriteLine("1 was selected");
+                        Console.WriteLine("4 was selected");
                         break;
                     case "5":
-                        Console.WriteLine("1 was selected");
+                        Console.WriteLine("5 was selected");
                         break;
                     case "6":
-                        Console.WriteLine("1 was selected");
+                        Console.WriteLine("6 was selected");
                         break;
                     case "7":
                         Console.WriteLine("Logout");
@@ -177,10 +173,11 @@ namespace BankApp
                     default:
                         break;
                 }
-                return;
+                if (response_two == "7")
+                {
+                    break;
+                }
             } while (true);
-            //Console.WriteLine("Seen");
-
         }
     }
 }
