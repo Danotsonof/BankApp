@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MicroBankApp
+namespace BankApp
 {
-    class Customer
+    public class Customer
     {
         public int ID { get; set; }
         public string Owner { get; set; }
         public string Email { get; set; }
-        public List<int> Numbers { get; set; }
+        public List<int> Numbers = new List<int>();
 
         public Customer(int id, string owner, string email, int number)
         {

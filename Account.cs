@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MicroBankApp
+namespace BankApp
 {
     class Account
     {

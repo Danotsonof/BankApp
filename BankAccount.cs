@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MicroBankApp
+namespace BankApp
 {
     class BankAccount
     {
@@ -25,7 +25,7 @@ namespace MicroBankApp
 			var customer = new Customer(id, owner, email, acctNumber);
 			Customers.Add(customer);
 
-			Console.WriteLine("Account Created.");
-		}
+            Console.WriteLine($"Account Created with ID: {id}");
+        }
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace MicroBankApp
+namespace BankApp
 {
     class Program
     {
@@ -50,7 +50,7 @@ namespace MicroBankApp
                             {
                                 BankAccount account = new BankAccount(firstName, lastName, email, accountType, Convert.ToDecimal(amount));
                                 Console.WriteLine();
-                                Console.WriteLine("Account successfully opened.");
+                                //Console.WriteLine($"Account successfully opened. with ID {}");
                                 Console.WriteLine();
                                 break;
                             }
@@ -104,6 +104,15 @@ namespace MicroBankApp
 
             Customer customer;
             Account account;
+
+            for (int i = 0; i < BankAccount.Customers.Count; i++)
+            {
+                if (Int16.Parse(user_id) == BankAccount.Customers[i].ID)
+                {
+                    seen = true;
+                    customer = BankAccount.Customers[i];
+                }
+            }
             
             foreach (var item in BankAccount.Customers)
             {
@@ -147,6 +156,21 @@ namespace MicroBankApp
                     case "1":
                         Console.WriteLine("1 was selected");
                         break;
+                    case "2":
+                        Console.WriteLine("1 was selected");
+                        break;
+                    case "3":
+                        Console.WriteLine("1 was selected");
+                        break;
+                    case "4":
+                        Console.WriteLine("1 was selected");
+                        break;
+                    case "5":
+                        Console.WriteLine("1 was selected");
+                        break;
+                    case "6":
+                        Console.WriteLine("1 was selected");
+                        break;
                     case "7":
                         Console.WriteLine("Logout");
                         break;
@@ -155,7 +179,7 @@ namespace MicroBankApp
                 }
                 return;
             } while (true);
-            Console.WriteLine("Seen");
+            //Console.WriteLine("Seen");
 
         }
     }
